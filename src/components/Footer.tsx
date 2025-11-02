@@ -35,17 +35,17 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300">
+    <footer className="bg-black text-gray-400">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Bot className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-white to-gray-400 rounded-xl flex items-center justify-center shadow-lg">
+                <Bot className="w-6 h-6 text-black" />
               </div>
               <span className="text-2xl font-bold text-white">Neapy HR</span>
             </div>
-            <p className="text-slate-400 mb-6 leading-relaxed">
+            <p className="text-gray-500 mb-6 leading-relaxed">
               AI-powered screening interviews that help you find exceptional talent faster and more efficiently.
             </p>
             <div className="flex items-center gap-4">
@@ -54,7 +54,7 @@ export default function Footer() {
                   key={index}
                   href={social.href}
                   aria-label={social.label}
-                  className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center transition-colors duration-200"
+                  className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors duration-200"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>
@@ -115,12 +115,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8">
+        <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-400 text-sm">
+            <p className="text-gray-500 text-sm">
               &copy; {new Date().getFullYear()} Neapy HR. All rights reserved.
             </p>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
+            <div className="flex items-center gap-2 text-sm text-gray-400">
               <Mail className="w-4 h-4" />
               <a href="mailto:hello@neapyhr.com" className="hover:text-white transition-colors duration-200">
                 hello@neapyhr.com

@@ -265,6 +265,30 @@
     @apply bg-white/5 backdrop-blur-lg border border-white/10;
   }
 
+  .glass-effect-bw {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl;
+  }
+
+  .btn-glow-bw {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glow-bw::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-glow-bw:hover::before {
+    left: 100%;
+  }
+
   .glow-effect {
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
   }
