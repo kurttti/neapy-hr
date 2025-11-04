@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { TrendingUp, Users, DollarSign, Star, Quote } from 'lucide-react';
+import { Avatar3D } from './Avatar3D';
+import { VoiceInteraction } from './VoiceInteraction';
+import { FaceRecognition } from './FaceRecognition';
 
 const benefits = [
   {
@@ -31,6 +34,8 @@ const benefits = [
 export default function Benefits() {
   const [visibleStats, setVisibleStats] = useState<boolean[]>([]);
   const [counters, setCounters] = useState<number[]>([0, 0, 0, 0]);
+  const [activeTab, setActiveTab] = useState<'avatar' | 'voice' | 'face'>('avatar');
+  const [avatarState, setAvatarState] = useState({ isListening: false, isAnalyzing: false, matchScore: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -76,6 +81,14 @@ export default function Benefits() {
       return () => clearInterval(interval);
     }
   }, [visibleStats]);
+
+  const handleVoiceData = (isListening: boolean, audioFrequency: number) => {
+    setAvatarState(prev => ({
+      ...prev,
+      isListening,
+      matchScore: isListening ? Math.min(95 + audioFrequency * 5, 100) : prev.matchScore
+    }));
+  };
 
   return (
     <section ref={sectionRef} className="py-24 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
@@ -136,41 +149,60 @@ export default function Benefits() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center relative">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-300 rounded-2xl blur-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-500"></div>
-              <img
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Happy HR Team"
-                className="relative rounded-2xl shadow-2xl w-full h-auto transform group-hover:scale-105 transition-transform duration-500"
-              />
+              <div className="space-y-4">
+                <div className="flex gap-2 mb-6">
+                  {(['avatar', 'voice', 'face'] as const).map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
+                        activeTab === tab
+                          ? 'bg-white text-black'
+                          : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                      }`}
+                    >
+                      {tab === 'avatar' && '3D Avatar'}
+                      {tab === 'voice' && 'Voice'}
+                      {tab === 'face' && 'Face Recognition'}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="min-h-96">
+                  {activeTab === 'avatar' && <Avatar3D isAnalyzing={false} matchScore={92} />}
+                  {activeTab === 'voice' && <VoiceInteraction onVoiceData={handleVoiceData} />}
+                  {activeTab === 'face' && <FaceRecognition />}
+                </div>
+              </div>
             </div>
 
             <div className="text-white space-y-6 relative">
               <Quote className="w-12 h-12 text-gray-400 mb-4 opacity-50" />
 
               <h3 className="text-3xl lg:text-4xl font-bold">
-                Loved by HR Teams <span className="text-gradient from-white to-gray-300">Worldwide</span>
+                Advanced Biometric{' '}
+                <span className="text-gradient from-white to-gray-300">Analysis</span>
               </h3>
 
               <p className="text-gray-300 text-lg leading-relaxed">
-                "Neapy HR has completely transformed our hiring process. We've reduced screening time by 85% and found better candidates faster than ever before. The AI interviews are incredibly natural and provide insights we never had access to before."
+                Our AI-powered system combines 3D facial recognition, voice analysis, and biometric evaluation to assess candidates with unprecedented accuracy. Real-time visualization shows engagement levels, facial expression analysis, and voice pattern recognition.
               </p>
 
-              <div className="flex items-center gap-4 pt-4">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-300 rounded-full blur-md animate-pulse-glow"></div>
-                  <img
-                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200"
-                    alt="Sarah Johnson"
-                    className="relative w-16 h-16 rounded-full border-2 border-white/30"
-                  />
-                </div>
-                <div>
-                  <div className="font-bold text-lg">Sarah Johnson</div>
-                  <div className="text-gray-300">Head of HR, TechCorp Inc.</div>
-                </div>
+              <div className="space-y-3 pt-4">
+                {[
+                  '3D Facial Mapping & Recognition',
+                  'Voice Frequency & Emotion Analysis',
+                  'Real-time Biometric Metrics',
+                  'Engagement Level Tracking'
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-gradient-to-r from-white to-gray-400 rounded-full"></div>
+                    <span className="text-gray-300">{feature}</span>
+                  </div>
+                ))}
               </div>
 
-              <div className="flex gap-1 pt-2">
+              <div className="flex gap-1 pt-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 text-gray-300 fill-gray-300" />
                 ))}
