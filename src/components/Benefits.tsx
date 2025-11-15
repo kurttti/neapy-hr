@@ -1,8 +1,28 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense, lazy, Component, ReactNode } from 'react';
 import { TrendingUp, Users, DollarSign, Star, Quote } from 'lucide-react';
-import { Avatar3D } from './Avatar3D';
-import { VoiceInteraction } from './VoiceInteraction';
-import { FaceRecognition } from './FaceRecognition';
+
+class ErrorBoundary extends Component<{ children: ReactNode; fallback: ReactNode }> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error('Component error:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const Avatar3D = lazy(() => import('./Avatar3D').then(module => ({ default: module.Avatar3D })));
+const VoiceInteraction = lazy(() => import('./VoiceInteraction').then(module => ({ default: module.VoiceInteraction })));
+const FaceRecognition = lazy(() => import('./FaceRecognition').then(module => ({ default: module.FaceRecognition })));
 
 const benefits = [
   {
@@ -169,9 +189,23 @@ export default function Benefits() {
                 </div>
 
                 <div className="min-h-96">
-                  {activeTab === 'avatar' && <Avatar3D isAnalyzing={false} matchScore={92} />}
-                  {activeTab === 'voice' && <VoiceInteraction onVoiceData={handleVoiceData} />}
-                  {activeTab === 'face' && <FaceRecognition />}
+                  <Suspense fallback={<div className="flex items-center justify-center h-96 text-white">Loading 3D component...</div>}>
+                    {activeTab === 'avatar' && (
+                      <ErrorBoundary fallback={<div className="text-white p-4">3D Avatar unavailable</div>}>
+                        <Avatar3D isAnalyzing={false} matchScore={92} />
+                      </ErrorBoundary>
+                    )}
+                    {activeTab === 'voice' && (
+                      <ErrorBoundary fallback={<div className="text-white p-4">Voice component unavailable</div>}>
+                        <VoiceInteraction onVoiceData={handleVoiceData} />
+                      </ErrorBoundary>
+                    )}
+                    {activeTab === 'face' && (
+                      <ErrorBoundary fallback={<div className="text-white p-4">Face recognition unavailable</div>}>
+                        <FaceRecognition />
+                      </ErrorBoundary>
+                    )}
+                  </Suspense>
                 </div>
               </div>
             </div>
