@@ -1,10 +1,10 @@
 import { ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 
 const features = [
-  'No credit card required',
-  '14-day free trial',
-  'Full access to all features',
-  'Cancel anytime'
+  'Без банковской карты',
+  '14 дней бесплатно',
+  'Полный доступ ко всем функциям',
+  'Отмена в любое время'
 ];
 
 export default function CTA() {
@@ -24,15 +24,15 @@ export default function CTA() {
             <div className="p-12 lg:p-16 text-white space-y-8 flex flex-col justify-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full w-fit shadow-lg">
                 <Sparkles className="w-4 h-4 text-gray-300" />
-                <span className="text-sm font-semibold">Limited Time Offer</span>
+                <span className="text-sm font-semibold">Ограниченное предложение</span>
               </div>
 
               <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                Ready to Transform Your Hiring?
+                Готовы преобразовать свой найм?
               </h2>
 
               <p className="text-xl text-gray-200 leading-relaxed">
-                Join hundreds of companies using Neapy HR to find exceptional talent faster and more efficiently.
+                Присоединяйтесь к сотням компаний, использующих Neapy HR для быстрого и эффективного поиска исключительных талантов.
               </p>
 
               <div className="space-y-4">
@@ -53,7 +53,7 @@ export default function CTA() {
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
                 <button className="group relative px-8 py-4 bg-gradient-to-r from-white to-gray-300 text-black rounded-xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    Start Free Trial
+                    Начать бесплатно
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-gray-300 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -61,7 +61,7 @@ export default function CTA() {
                 </button>
 
                 <button className="group px-8 py-4 glass-effect-bw text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 shadow-lg flex items-center justify-center gap-2">
-                  Schedule Demo
+                  Записаться на демо
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -83,8 +83,8 @@ export default function CTA() {
                   ))}
                 </div>
                 <div className="text-sm">
-                  <div className="font-semibold">Join 800+ companies</div>
-                  <div className="text-gray-300">Already using Neapy HR</div>
+                  <div className="font-semibold">Присоединяйтесь к 800+ компаниям</div>
+                  <div className="text-gray-300">Уже используют Neapy HR</div>
                 </div>
               </div>
             </div>
@@ -100,8 +100,8 @@ export default function CTA() {
               <div className="absolute bottom-8 left-8 right-8 z-20 glass-effect-bw rounded-2xl p-6 shadow-2xl transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-white font-bold text-2xl mb-1">85% Time Saved</div>
-                    <div className="text-gray-300">Average across all clients</div>
+                    <div className="text-white font-bold text-2xl mb-1">85% экономии времени</div>
+                    <div className="text-gray-300">В среднем по всем клиентам</div>
                   </div>
                   <div className="w-16 h-16 bg-gradient-to-br from-white to-gray-300 rounded-xl flex items-center justify-center shadow-lg animate-pulse-glow">
                     <CheckCircle className="w-8 h-8 text-black" />
