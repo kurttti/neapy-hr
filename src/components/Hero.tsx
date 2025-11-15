@@ -19,18 +19,28 @@ export default function Hero() {
   useEffect(() => {
     setIsVisible(true);
 
+    let mouseTimeout: number;
+    let scrollTimeout: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (mouseTimeout) cancelAnimationFrame(mouseTimeout);
+      mouseTimeout = requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      });
     };
 
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+      scrollTimeout = requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+      });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-    const generatedParticles = Array.from({ length: 30 }, (_, i) => ({
+    // Уменьшаем количество частиц для лучшей производительности
+    const generatedParticles = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -43,6 +53,8 @@ export default function Hero() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
+      if (mouseTimeout) cancelAnimationFrame(mouseTimeout);
+      if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
     };
   }, []);
 
@@ -95,7 +107,7 @@ export default function Hero() {
               </div>
 
               <div className="hidden md:flex items-center gap-8">
-                {['Features', 'How It Works', 'Pricing'].map((item, idx) => (
+                {['Возможности', 'Как это работает', 'Цены'].map((item, idx) => (
                   <a
                     key={idx}
                     href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
@@ -109,12 +121,12 @@ export default function Hero() {
 
               <div className="flex items-center gap-4">
                 <button className="hidden sm:block px-6 py-2.5 text-white hover:text-gray-300 transition-colors duration-200 font-semibold group/signin">
-                  Sign In
+                  Войти
                   <span className="block absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover/signin:w-full transition-all duration-300"></span>
                 </button>
                 <button className="group relative px-6 py-2.5 bg-gradient-to-r from-white to-gray-300 text-black rounded-xl font-semibold overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 btn-glow-bw">
                   <span className="relative z-10 flex items-center gap-2 group-hover:animate-text-shimmer">
-                    Get Started
+                    Начать
                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-gray-300 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -131,7 +143,7 @@ export default function Hero() {
             <div className={`transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="inline-flex items-center gap-2 px-5 py-2.5 glass-effect-bw rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer hover:scale-105">
                 <Sparkles className="w-4 h-4 text-gray-300 animate-pulse" />
-                <span className="text-sm font-semibold text-gray-200">AI-Powered Recruitment Revolution</span>
+                <span className="text-sm font-semibold text-gray-200">Революция в рекрутинге на базе ИИ</span>
                 <div className="w-6 h-6 bg-gradient-to-r from-white to-gray-400 rounded-full flex items-center justify-center group-hover:scale-125 group-hover:rotate-180 transition-all duration-500">
                   <ArrowRight className="w-3 h-3 text-black" />
                 </div>
@@ -139,23 +151,23 @@ export default function Hero() {
             </div>
 
             <h1 className={`text-6xl lg:text-7xl font-bold leading-tight transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              Hire Smarter with{' '}
+              Наймите умнее с{' '}
               <span className="relative inline-block">
                 <span className="text-gradient from-white via-gray-300 to-white animate-gradient">
-                  AI Interviews
+                  ИИ-интервью
                 </span>
                 <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-white to-gray-400 rounded-full animate-pulse-glow"></div>
               </span>
             </h1>
 
             <p className={`text-xl text-gray-300 leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              Transform your recruitment with advanced AI that conducts natural screening interviews, evaluates candidates instantly, and helps you discover exceptional talent 3x faster than traditional methods.
+              Преобразуйте свой рекрутинг с помощью продвинутого ИИ, который проводит естественные скрининговые интервью, мгновенно оценивает кандидатов и помогает находить исключительные таланты в 3 раза быстрее традиционных методов.
             </p>
 
             <div className={`flex flex-col sm:flex-row gap-4 pt-4 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <button className="group relative px-8 py-4 bg-gradient-to-r from-white to-gray-300 text-black rounded-xl font-semibold overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 btn-glow-bw">
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  Start Free Trial
+                  Начать бесплатно
                   <Zap className="w-5 h-5 group-hover:animate-bounce-in" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-300 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -166,15 +178,15 @@ export default function Hero() {
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
                   <Play className="w-5 h-5 ml-0.5" />
                 </div>
-                Watch Demo
+                Смотреть демо
               </button>
             </div>
 
             <div className={`grid grid-cols-3 gap-8 pt-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               {[
-                { value: '15k+', label: 'Interviews', delay: '0ms' },
-                { value: '800+', label: 'Companies', delay: '100ms' },
-                { value: '90%', label: 'Time Saved', delay: '200ms' }
+                { value: '15k+', label: 'Интервью', delay: '0ms' },
+                { value: '800+', label: 'Компаний', delay: '100ms' },
+                { value: '90%', label: 'Экономия времени', delay: '200ms' }
               ].map((stat, index) => (
                 <div
                   key={index}
@@ -194,7 +206,7 @@ export default function Hero() {
           </div>
 
           <div className={`relative transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <div className="relative animate-float" style={{ transform: `translateY(${scrollY * 0.5}px)` }}>
+            <div className="relative animate-float" style={{ transform: `translateY(${scrollY * 0.2}px)`, willChange: 'transform' }}>
               <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-gray-400/20 rounded-3xl blur-3xl opacity-30 animate-pulse-glow animate-breathing"></div>
 
               <div className="relative glass-effect-bw rounded-3xl p-8 shadow-2xl group hover:scale-[1.02] transition-all duration-500 perspective card-hover">
@@ -209,7 +221,7 @@ export default function Hero() {
                 <div className="absolute top-4 right-4 glass-effect-bw rounded-xl px-4 py-2 shadow-lg animate-fadeInUp group-hover:animate-bounce-in">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <span className="text-white text-sm font-semibold">Live Interview</span>
+                    <span className="text-white text-sm font-semibold">Интервью в прямом эфире</span>
                   </div>
                 </div>
 
@@ -222,10 +234,10 @@ export default function Hero() {
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold text-white text-lg">AI Analysis Complete</div>
+                      <div className="font-bold text-white text-lg">Анализ ИИ завершен</div>
                       <div className="flex items-center gap-2">
                         <div className="text-2xl font-bold text-gradient from-white to-gray-300">97%</div>
-                        <span className="text-sm text-gray-300">Match Score</span>
+                        <span className="text-sm text-gray-300">Совпадение</span>
                       </div>
                     </div>
                   </div>
@@ -234,7 +246,7 @@ export default function Hero() {
                 <div className="absolute -top-4 -right-4 glass-effect-bw rounded-xl p-4 shadow-xl animate-scaleIn group-hover:animate-pulse-glow" style={{ animationDelay: '0.3s' }}>
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-gray-200 animate-bounce-in" />
-                    <span className="text-white font-semibold">Top Candidate</span>
+                    <span className="text-white font-semibold">Топ кандидат</span>
                   </div>
                 </div>
               </div>

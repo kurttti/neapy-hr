@@ -27,27 +27,27 @@ const FaceRecognition = lazy(() => import('./FaceRecognition').then(module => ({
 const benefits = [
   {
     icon: TrendingUp,
-    stat: '3x Faster',
-    title: 'Hiring Speed',
-    description: 'Reduce time-to-hire from weeks to days with automated screening and instant candidate evaluation.'
+    stat: 'В 3 раза быстрее',
+    title: 'Скорость найма',
+    description: 'Сократите время найма с недель до дней благодаря автоматизированному отбору и мгновенной оценке кандидатов.'
   },
   {
     icon: Users,
     stat: '800+',
-    title: 'Companies Trust Us',
-    description: 'Join hundreds of forward-thinking companies that have modernized their recruitment process.'
+    title: 'Нам доверяют компании',
+    description: 'Присоединяйтесь к сотням прогрессивных компаний, которые модернизировали свой процесс рекрутинга.'
   },
   {
     icon: DollarSign,
     stat: '60%',
-    title: 'Cost Reduction',
-    description: 'Lower recruitment costs by automating initial screening and reducing recruiter workload significantly.'
+    title: 'Снижение затрат',
+    description: 'Снизьте затраты на рекрутинг, автоматизируя начальный отбор и значительно уменьшая нагрузку на рекрутеров.'
   },
   {
     icon: Star,
     stat: '4.9/5',
-    title: 'Customer Rating',
-    description: 'Highly rated by HR professionals for ease of use, accuracy, and impact on hiring quality.'
+    title: 'Оценка клиентов',
+    description: 'Высоко оценено HR-специалистами за простоту использования, точность и влияние на качество найма.'
   }
 ];
 
@@ -122,14 +122,14 @@ export default function Benefits() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm text-gray-300 rounded-full text-sm font-semibold border border-white/20">
-            Real Impact
+            Реальное влияние
           </div>
           <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6">
-            The Impact on Your{' '}
-            <span className="text-gradient from-white to-gray-400">Business</span>
+            Влияние на ваш{' '}
+            <span className="text-gradient from-white to-gray-400">бизнес</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Real results from companies using Neapy HR to revolutionize their hiring process.
+            Реальные результаты компаний, использующих Neapy HR для революции в процессе найма.
           </p>
         </div>
 
@@ -181,27 +181,27 @@ export default function Benefits() {
                           : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                       }`}
                     >
-                      {tab === 'avatar' && '3D Avatar'}
-                      {tab === 'voice' && 'Voice'}
-                      {tab === 'face' && 'Face Recognition'}
+                      {tab === 'avatar' && '3D Аватар'}
+                      {tab === 'voice' && 'Голос'}
+                      {tab === 'face' && 'Распознавание лица'}
                     </button>
                   ))}
                 </div>
 
                 <div className="min-h-96">
-                  <Suspense fallback={<div className="flex items-center justify-center h-96 text-white">Loading 3D component...</div>}>
+                  <Suspense fallback={<div className="flex items-center justify-center h-96 text-white">Загрузка 3D компонента...</div>}>
                     {activeTab === 'avatar' && (
-                      <ErrorBoundary fallback={<div className="text-white p-4">3D Avatar unavailable</div>}>
+                      <ErrorBoundary fallback={<div className="text-white p-4">3D Аватар недоступен</div>}>
                         <Avatar3D isAnalyzing={false} matchScore={92} />
                       </ErrorBoundary>
                     )}
                     {activeTab === 'voice' && (
-                      <ErrorBoundary fallback={<div className="text-white p-4">Voice component unavailable</div>}>
+                      <ErrorBoundary fallback={<div className="text-white p-4">Голосовой компонент недоступен</div>}>
                         <VoiceInteraction onVoiceData={handleVoiceData} />
                       </ErrorBoundary>
                     )}
                     {activeTab === 'face' && (
-                      <ErrorBoundary fallback={<div className="text-white p-4">Face recognition unavailable</div>}>
+                      <ErrorBoundary fallback={<div className="text-white p-4">Распознавание лица недоступно</div>}>
                         <FaceRecognition />
                       </ErrorBoundary>
                     )}
@@ -214,20 +214,20 @@ export default function Benefits() {
               <Quote className="w-12 h-12 text-gray-400 mb-4 opacity-50" />
 
               <h3 className="text-3xl lg:text-4xl font-bold">
-                Advanced Biometric{' '}
-                <span className="text-gradient from-white to-gray-300">Analysis</span>
+                Продвинутый биометрический{' '}
+                <span className="text-gradient from-white to-gray-300">анализ</span>
               </h3>
 
               <p className="text-gray-300 text-lg leading-relaxed">
-                Our AI-powered system combines 3D facial recognition, voice analysis, and biometric evaluation to assess candidates with unprecedented accuracy. Real-time visualization shows engagement levels, facial expression analysis, and voice pattern recognition.
+                Наша система на базе ИИ объединяет 3D распознавание лиц, анализ голоса и биометрическую оценку для оценки кандидатов с беспрецедентной точностью. Визуализация в реальном времени показывает уровни вовлеченности, анализ мимики и распознавание голосовых паттернов.
               </p>
 
               <div className="space-y-3 pt-4">
                 {[
-                  '3D Facial Mapping & Recognition',
-                  'Voice Frequency & Emotion Analysis',
-                  'Real-time Biometric Metrics',
-                  'Engagement Level Tracking'
+                  '3D картографирование и распознавание лиц',
+                  'Анализ частоты голоса и эмоций',
+                  'Биометрические метрики в реальном времени',
+                  'Отслеживание уровня вовлеченности'
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 bg-gradient-to-r from-white to-gray-400 rounded-full"></div>

@@ -5,26 +5,26 @@ const steps = [
   {
     icon: Upload,
     step: '01',
-    title: 'Post Your Job',
-    description: 'Upload job requirements and define the skills and qualities you are looking for in candidates.'
+    title: 'Разместите вакансию',
+    description: 'Загрузите требования к должности и определите навыки и качества, которые вы ищете в кандидатах.'
   },
   {
     icon: MessageSquare,
     step: '02',
-    title: 'AI Conducts Interviews',
-    description: 'Our AI interviews candidates through natural conversations, asking tailored questions and evaluating responses.'
+    title: 'ИИ проводит интервью',
+    description: 'Наш ИИ проводит интервью с кандидатами через естественные беседы, задавая индивидуальные вопросы и оценивая ответы.'
   },
   {
     icon: LineChart,
     step: '03',
-    title: 'Review Analytics',
-    description: 'Access detailed scorecards with insights on candidate skills, experience, and cultural fit ratings.'
+    title: 'Просмотрите аналитику',
+    description: 'Получите доступ к детальным оценочным картам с данными о навыках кандидатов, опыте и оценках культурного соответствия.'
   },
   {
     icon: CheckCircle,
     step: '04',
-    title: 'Make Better Hires',
-    description: 'Select top candidates with confidence using data-driven recommendations and comprehensive evaluations.'
+    title: 'Делайте лучшие наймы',
+    description: 'Выбирайте лучших кандидатов с уверенностью, используя рекомендации на основе данных и комплексные оценки.'
   }
 ];
 
@@ -75,13 +75,13 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <div className="inline-block mb-4 px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold">
-            Simple Process
+            Простой процесс
           </div>
           <h2 className="text-5xl lg:text-6xl font-bold text-black mb-6">
-            How It <span className="text-gradient from-gray-700 to-black">Works</span>
+            Как это <span className="text-gradient from-gray-700 to-black">работает</span>
           </h2>
           <p className="text-xl text-gray-600 leading-relaxed">
-            Four simple steps to transform your hiring process and find exceptional talent.
+            Четыре простых шага для преобразования процесса найма и поиска исключительных талантов.
           </p>
         </div>
 

@@ -98,9 +98,10 @@ function BiometricGrid() {
 
 function ParticleSystem({ isAnalyzing }: { isAnalyzing?: boolean }) {
   const pointsRef = useRef<THREE.Points>(null);
+  // Уменьшаем количество частиц для лучшей производительности
   const [positions] = useState(() => {
-    const pos = new Float32Array(300);
-    for (let i = 0; i < 300; i += 3) {
+    const pos = new Float32Array(150); // Было 300, стало 150
+    for (let i = 0; i < 150; i += 3) {
       pos[i] = (Math.random() - 0.5) * 4;
       pos[i + 1] = (Math.random() - 0.5) * 4;
       pos[i + 2] = (Math.random() - 0.5) * 4;
@@ -110,13 +111,18 @@ function ParticleSystem({ isAnalyzing }: { isAnalyzing?: boolean }) {
 
   useFrame((state) => {
     if (!pointsRef.current) return;
-    pointsRef.current.rotation.x += 0.0005;
-    pointsRef.current.rotation.y += 0.0008;
+    // Оптимизация: обновляем реже
+    if (Math.floor(state.clock.elapsedTime * 30) % 2 === 0) {
+      pointsRef.current.rotation.x += 0.0005;
+      pointsRef.current.rotation.y += 0.0008;
+    }
 
+    // Упрощаем анимацию частиц
     const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
-    for (let i = 0; i < positions.length; i += 3) {
-      positions[i] += Math.sin(state.clock.elapsedTime + i) * 0.005;
-      positions[i + 1] += Math.cos(state.clock.elapsedTime + i) * 0.005;
+    const time = state.clock.elapsedTime;
+    for (let i = 0; i < positions.length; i += 9) {
+      positions[i] += Math.sin(time + i) * 0.003;
+      positions[i + 1] += Math.cos(time + i) * 0.003;
     }
     pointsRef.current.geometry.attributes.position.needsUpdate = true;
   });
@@ -180,7 +186,7 @@ export function Avatar3D({ isListening = false, isAnalyzing = false, matchScore 
           <div className="inline-block px-4 py-2 glass-effect-bw rounded-lg animate-pulse">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              <span className="text-sm font-semibold text-white">Listening...</span>
+              <span className="text-sm font-semibold text-white">Слушаю...</span>
             </div>
           </div>
         )}
@@ -189,7 +195,7 @@ export function Avatar3D({ isListening = false, isAnalyzing = false, matchScore 
           <div className="inline-block px-4 py-2 glass-effect-bw rounded-lg">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-gray-300 rounded-full animate-bounce"></div>
-              <span className="text-sm font-semibold text-white">Analyzing...</span>
+              <span className="text-sm font-semibold text-white">Анализирую...</span>
             </div>
           </div>
         )}
@@ -199,7 +205,7 @@ export function Avatar3D({ isListening = false, isAnalyzing = false, matchScore 
         {matchScore && (
           <div>
             <div className="flex justify-between mb-2">
-              <span className="text-xs font-semibold text-gray-300">Match Score</span>
+              <span className="text-xs font-semibold text-gray-300">Совпадение</span>
               <span className="text-sm font-bold text-white">{Math.round(matchScore)}%</span>
             </div>
             <div className="w-full h-1 bg-gray-800 rounded-full overflow-hidden">
